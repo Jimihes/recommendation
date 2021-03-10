@@ -35,7 +35,7 @@ public class databaseReader {
 		String[] uCurrent;
 		bidding[] biddings = new bidding[0];
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("houses.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("biddings.txt"));
 			int j=0;
 			while((sCurrentLine = br.readLine()) != null) j++;
 			biddings = new bidding[j];
