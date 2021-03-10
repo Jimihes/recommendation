@@ -1,0 +1,4 @@
+id;username;password;type
+18;gibbel;pw;admin;
+1;jib;ww;seller
+1;gibbelS;ww;seller
