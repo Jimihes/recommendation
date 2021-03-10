@@ -19,6 +19,7 @@ public class house{
 	
 	
 	//test comment johann
+	//test comment eva
 	
 	public house(boolean hasGarden, int noOfRooms, int noOfBathrooms, int floors, double price, double livingArea, 
 				 String address, String energyLabel, int houseId, int sellerId, int acceptedBid) {
