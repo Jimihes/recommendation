@@ -72,7 +72,7 @@ public class recommendation {
 				currentSeller.addHouse();
 				break;
 			case 2:
-				//viewBiddings(); johann
+				bidding.viewBiddings(currentSeller.userId);
 				break;
 			case 3:
 				//determineBidding(); eva
