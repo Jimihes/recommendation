@@ -1,10 +1,22 @@
 package recommendation;
 import java.util.*;
-public class admin {
+
+public class admin extends user{
+		
 	//Attributes of the class:
 	static Scanner InputInt = new Scanner(System.in);
 	static Scanner InputString = new Scanner(System.in);
 	static Scanner InputDouble = new Scanner(System.in);
+	
+		private void removeHouse(house h) {
+			System.out.println(h.address);
+		}
+		private void editHouse(house h) {
+			System.out.println(h.address);		
+		}
+		
+	
+	
 	
 	//Method of the class:
     public void removeBidding() {
@@ -13,7 +25,7 @@ public class admin {
 		int bidIdInput = InputInt.nextInt(); 
 		
 		
-		bidding[] oldbiddings = databaseReader.biddingsReader();
+		bidding[] oldbiddings = bidding.biddingsReader();
 	
 		bidding[] newbidding = new bidding[oldbiddings.length-1];
 		
@@ -27,7 +39,7 @@ public class admin {
 			newbidding[newIndex] = oldbiddings[i];
 			newIndex++;
 		}
-		databaseWriter.overwriteBiddingsFile(newbidding);
+		bidding.overwriteBiddingsFile(newbidding);
     }
     
     public void deleteUser() {
@@ -35,7 +47,7 @@ public class admin {
 		//deleteUser(); 
 		System.out.println("Enter the ID of the user you would like to remove: ");
 		int userToBeRemoved = InputInt.nextInt();
-		user[] users = databaseReader.userReader();
+		user[] users = user.userReader();
 		user[] newusers = new user[users.length-1];
 		
 		for (int i=0; i < users.length;i++) {
@@ -46,7 +58,7 @@ public class admin {
 			newusers[i] = users[i];
 			break;
 			}
-		databaseWriter.overwriteUsersFile(newusers);
+		user.overwriteUsersFile(newusers);
 		}
     
 }

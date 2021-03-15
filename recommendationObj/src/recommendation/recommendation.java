@@ -16,8 +16,8 @@ public class recommendation {
 	static int biddingCounter;
 	static int userCounter;
 	static user currentUser;
-	static user.buyer currentBuyer;
-	static user.seller currentSeller;
+	static buyer currentBuyer;
+	static seller currentSeller;
 	static admin admin;
 	
 	public static void main(String[] args) {
@@ -116,18 +116,18 @@ public class recommendation {
 		String username = inputStr.nextLine();
 		System.out.println("Enter a password:");
 		String password = inputStr.nextLine();
-		String type = databaseReader.accountsReader(username, password);
+		String type = user.accountsReader(username, password);
 		currentUser = new user();
 		if (type.equals("buyer")) {
-			currentBuyer = currentUser.new buyer();
+			currentBuyer = new buyer();
 			currentBuyer.password = password;
 			currentBuyer.username = username;
 		} else if (type.equals("seller")) {
-			currentSeller = currentUser.new seller();
+			currentSeller = new seller();
 			currentSeller.password = password;
 			currentSeller.username = username;
 		} else if(type.equals("admin")) {
-			admin = currentUser.new admin();
+			admin = new admin();
 			admin.username = username;
 			admin.password = password;
 		} else {
@@ -137,12 +137,12 @@ public class recommendation {
 	
 	//this method initializes the general program counters
 	public static void updateProgram() {
-		databaseWriter.generalUpdate(houseCounter,biddingCounter,userCounter);
+		generalUpdate(houseCounter,biddingCounter,userCounter);
 	}
 	
 	// this method loads the general program counters
 	public static void loadProgram() {
-		databaseReader.generalReader();
+		generalReader();
 	}
 	
 	
@@ -156,20 +156,48 @@ public class recommendation {
 			System.out.println("Enter a password:");
 			String password = inputStr.nextLine();
 			if (type == "b") {
-				databaseWriter.appendAccounts(1,username,password,"buyer");
+				user.appendAccounts(1,username,password,"buyer");
 			}else {
-				databaseWriter.appendAccounts(1, username, password, "seller");
+				user.appendAccounts(1, username, password, "seller");
 			}
 			//update the program that an extra user is added
 			recommendation.userCounter ++;
-			databaseWriter.generalUpdate(houseCounter, biddingCounter, userCounter);
+			generalUpdate(houseCounter, biddingCounter, userCounter);
 		}
 		
 
 	
 	
 	
-
+		//this method sets the houseCounter, userCounter and biddingCounter in recommendation class
+		public static void generalReader(){
+			String sCurrentLine;
+			String[] uCurrent;
+			try {
+				BufferedReader br = new BufferedReader(new FileReader("general.txt"));
+				while((sCurrentLine = br.readLine()) != null) {
+					uCurrent = sCurrentLine.split(";");
+					recommendation.houseCounter = Integer.parseInt(uCurrent[0]);
+					recommendation.biddingCounter = Integer.parseInt(uCurrent[1]);
+					recommendation.userCounter = Integer.parseInt(uCurrent[2]);
+				}
+				br.close();
+			}catch(IOException e){
+				System.out.println("Could not log in");
+			}
+		}
+		public static void generalUpdate(int houseId, int biddingId,int userId){
+			
+			
+			try {
+				PrintWriter wr = new PrintWriter(new BufferedWriter(
+								 new FileWriter("general.txt",true)));				
+				wr.println(houseId +";"+ biddingId +";"+ userId);
+				wr.close();
+			}catch(IOException e) {
+				System.out.println("File could not be read or appended to");
+			}
+		}
 	
 	
 	
