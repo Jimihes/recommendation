@@ -14,6 +14,7 @@ public class user{
 
 	public class buyer extends user{
 		
+		
 		public void createBidding(){
 			//ask for the bidding total
 			System.out.println("What do u wanna bid?");
@@ -29,26 +30,53 @@ public class user{
 											 recommendation.biddingCounter, 
 											 recommendation.userCounter);
 		}
+		
+		public void viewHouseList(){
+			// code to ask criteria
+			
+			
+			// code to view all houses
+			
+			// if user wants to view single house:
+			house h= new house();
+			viewHousePage(h);
+		}
+		
+		public void viewHousePage(house h) {	// I think this belongs to the class house 
+			System.out.println("Address: " + h.address);
+			System.out.println("Number of rooms: " + h.noOfRooms);
+			System.out.println("Number of bathrooms: " + h.noOfBathrooms);
+			System.out.println("Number of bedrooms: " + h.noOfBedrooms);
+			System.out.println("Garden (yes/no): " + h.hasGarden);
+			System.out.println("Energy label: " + h.energyLabel);
+			System.out.println("Number of floors: " + h.floors);
+			System.out.println("Living area: " + h.livingArea);
+			System.out.println("Price: " + h.price);
+			
+		
+		}
 	}
-public class admin extends user{
+	public class admin extends user{
+		
+		private void removeHouse(house h) {
+			System.out.println(h.address);
+		}
+		private void editHouse(house h) {
+			System.out.println(h.address);		
+		}
+		private void removeBidding(bidding b) {
+			System.out.println(b.total);
+		}
+		
+	}
 	
-	private void removeHouse(house h) {
-		System.out.println(h.address);
-	}
-	private void editHouse(house h) {
-		System.out.println(h.address);		
-	}
-	private void removeBidding(bidding b) {
-		System.out.println(b.total);
-	}
-	
-}
 public class seller extends user{
 	
 	public void addHouse() {
 		boolean hasGarden = false;
 		int noOfRooms = -1;
 		int noOfBathrooms = -1;
+		int noOfBedrooms = -1;
 		int floors =1;
 		double price = -1;
 		double livingArea = -1;
@@ -56,7 +84,7 @@ public class seller extends user{
 		String energyLabel = "G";
 		
 		//list of the house attributes the user can specify
-		String[] houseAttributes = {"available garden","Number of rooms", "Number of bathrooms", 
+		String[] houseAttributes = {"available garden","Number of rooms", "Number of bathrooms", "Number of bedrooms", 
 									"Number of floors", "Price", "Living area", "Address","Energy label","exit"};
 		ArrayList<Integer> atbs = new ArrayList<Integer>() ;
 		for (int i=0 ; i < houseAttributes.length ; i++) atbs.add(i);
@@ -84,32 +112,36 @@ public class seller extends user{
 				noOfBathrooms = inputInt.nextInt();
 				break;
 			case 3:
+				System.out.println("How many bathrooms does your house have?");
+				noOfBathrooms = inputInt.nextInt();
+				break;
+			case 4:
 				System.out.println("How many floors does your house have?");
 				floors = inputInt.nextInt();
 				break;
-			case 4:
+			case 5:
 				System.out.println("What is the asking price?");
 				price = inputInt.nextInt();
 				break;
-			case 5:
+			case 6:
 				System.out.println("What is the living area (in sqr meters)?");
 				livingArea = inputInt.nextInt();
 				break;
-			case 6:
+			case 7:
 				System.out.println("What is the address?");
 				address = inputStr.nextLine();
 				break;
-			case 7:
+			case 8:
 				System.out.println("What is the energy label of your house?");
 				energyLabel = inputStr.nextLine();
 				break;
-			case 8:
+			case 9:
 				userChoice = -1;
 				break;
 			}
 			if (userChoice != -1) atbs.remove(atbs.indexOf(userChoice));
 		}
-		house h = new house(hasGarden, noOfRooms, noOfBathrooms, floors, price, livingArea, address,
+		house h = new house(hasGarden, noOfRooms, noOfBathrooms, noOfBedrooms, floors, price, livingArea, address,
 							energyLabel, recommendation.houseCounter, recommendation.currentSeller.userId, -1);
 		databaseWriter.appendHouse(h);
 

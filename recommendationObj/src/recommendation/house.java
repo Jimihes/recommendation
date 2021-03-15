@@ -4,6 +4,7 @@ public class house {
 	boolean hasGarden = false;
 	int noOfRooms;
 	int noOfBathrooms;
+	int noOfBedrooms;
 	int floors = 1;
 	double price;
 	double livingArea;
@@ -22,7 +23,7 @@ public class house {
 
 	// third test comment
 
-	public house(boolean hasGarden, int noOfRooms, int noOfBathrooms, int floors, double price, double livingArea,
+	public house(boolean hasGarden, int noOfRooms, int noOfBathrooms,int noOfBedrooms, int floors, double price, double livingArea,
 			String address, String energyLabel, int houseId, int sellerId, int acceptedBid) {
 		this.hasGarden = hasGarden;
 		this.noOfRooms = noOfRooms;

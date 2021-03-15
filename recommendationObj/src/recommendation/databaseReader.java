@@ -6,6 +6,17 @@ import java.io.IOException;
 
 public class databaseReader {
 	
+	public static void overwriteFavoriteList(int userId, int houseId) {
+		
+		
+		// txt file looks like:
+		// - userId ; houseId 
+		
+		//
+		
+		
+	}
+	
 	//this methods reads all accounts and checks is anything matches
 	public static String accountsReader(String username, String password){
 		String sCurrentLine;
@@ -26,6 +37,46 @@ public class databaseReader {
 		}
 		return type;
 	}
+	
+	// this method reads all biddings and returns them in an array
+		public static user[] userReader( ){
+			String sCurrentLine;
+			String[] uCurrent;
+			user[] users = new user[0];
+			try {
+				user u = new user();
+				BufferedReader br = new BufferedReader(new FileReader("accounts.txt"));
+				int i = 0;
+				while((sCurrentLine = br.readLine()) != null) {
+					uCurrent = sCurrentLine.split(";");
+					if(uCurrent[3] == "buyer") {
+						u = u.new buyer();
+						users[i].username = uCurrent[1];
+						users[i].password = uCurrent[2];
+					}else if(uCurrent[3] == "seller") {
+						u = u.new seller();
+						users[i].username = uCurrent[1];
+						users[i].password = uCurrent[2];
+					}else if(uCurrent[3] == "admin") {
+						u = u.new admin();
+						users[i].username = uCurrent[1];
+						users[i].password = uCurrent[2];	
+					}
+						
+					users[i] = u;
+					i++;
+				}
+				br.close();
+				
+			}catch(IOException e){
+				System.out.println("Could not read users");
+			}
+			return users;
+		}
+	
+	
+	
+	
 	
 	
 
@@ -69,8 +120,10 @@ public class databaseReader {
 			while((sCurrentLine = br.readLine()) != null) {
 				uCurrent = sCurrentLine.split(";");
 				house h = new house(Boolean.parseBoolean(uCurrent[0]), Integer.parseInt(uCurrent[1]),
-						Integer.parseInt(uCurrent[2]),Integer.parseInt(uCurrent[3]),Double.parseDouble(uCurrent[4]), Double.parseDouble(uCurrent[5]),
-						uCurrent[6],uCurrent[7],Integer.parseInt(uCurrent[8]), Integer.parseInt(uCurrent[9]), Integer.parseInt(uCurrent[10]));
+						Integer.parseInt(uCurrent[2]),Integer.parseInt(uCurrent[3]),Integer.parseInt(uCurrent[4]),
+						Double.parseDouble(uCurrent[5]), Double.parseDouble(uCurrent[6]),
+						uCurrent[7],uCurrent[8],Integer.parseInt(uCurrent[9]), 
+						Integer.parseInt(uCurrent[10]), Integer.parseInt(uCurrent[11]));				
 				houses[i] = h;
 				i++;
 			}
@@ -93,8 +146,10 @@ public class databaseReader {
 				uCurrent = sCurrentLine.split(";");
 				if (Integer.parseInt(uCurrent[8]) == houseId) {
 				h = new house(Boolean.parseBoolean(uCurrent[0]), Integer.parseInt(uCurrent[1]),
-						Integer.parseInt(uCurrent[2]),Integer.parseInt(uCurrent[3]),Double.parseDouble(uCurrent[4]), Double.parseDouble(uCurrent[5]),
-						uCurrent[6],uCurrent[7],Integer.parseInt(uCurrent[8]), Integer.parseInt(uCurrent[9]), Integer.parseInt(uCurrent[10]));
+						Integer.parseInt(uCurrent[2]),Integer.parseInt(uCurrent[3]),Integer.parseInt(uCurrent[4]),
+						Double.parseDouble(uCurrent[5]), Double.parseDouble(uCurrent[6]),
+						uCurrent[7],uCurrent[8],Integer.parseInt(uCurrent[9]), 
+						Integer.parseInt(uCurrent[10]), Integer.parseInt(uCurrent[11]));
 			}}
 			br.close();
 			

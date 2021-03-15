@@ -18,7 +18,7 @@ public class recommendation {
 	static user currentUser;
 	static user.buyer currentBuyer;
 	static user.seller currentSeller;
-	static user.admin admin;
+	static admin admin;
 	
 	public static void main(String[] args) {
 		
@@ -52,7 +52,7 @@ public class recommendation {
 			int userChoice = inputInt.nextInt();
 			switch (userChoice) {
 			case 1:
-				//viewHouselist();
+				currentBuyer.viewHouseList(); //Not finished yet !!
 				break;
 			case 2:
 				currentBuyer.createBidding();
@@ -67,6 +67,8 @@ public class recommendation {
 			System.out.println("* determine bidding (3)");
 			System.out.println("Enter activity number here:");
 			int userChoice = inputInt.nextInt();
+			
+			
 			switch (userChoice) {
 			case 1:
 				currentSeller.addHouse();
@@ -75,7 +77,7 @@ public class recommendation {
 				bidding.viewBiddings(currentSeller.userId);
 				break;
 			case 3:
-				//determineBidding(); eva
+				currentSeller.determineBidding(); 
 				//if sold: automatically delete this house (not a user choice)
 				break;
 			}
@@ -94,10 +96,10 @@ public class recommendation {
 				//editHouse();
 				break;
 			case 3:
-				//removeBidding(); sarah
+				admin.removeBidding(); 
 				break;
 			case 4:
-				//deleteUser(); lawrence
+				admin.deleteUser(); 
 				break;
 			}
 		} else { //reaching this means the user is a guest

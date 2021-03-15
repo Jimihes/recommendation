@@ -75,8 +75,9 @@ public class databaseWriter {
 		try {
 			PrintWriter wr = new PrintWriter(new BufferedWriter(
 							 new FileWriter("houses.txt",true)));				
-			wr.println(h.hasGarden + ";" + h.noOfRooms + ";" + h.noOfBathrooms + ";" + h.floors + ";" + h.price + ";" +
-							 h.livingArea + ";" + h.address + ";" + h.energyLabel+ ";" + h.houseId + ";" + recommendation.currentSeller.userId);
+			wr.println(h.hasGarden + ";" + h.noOfRooms + ";" + h.noOfBathrooms +";" + h.noOfBedrooms + ";" + h.floors + ";" 
+							 + h.price + ";" + h.livingArea + ";" + h.address + ";" + h.energyLabel+ ";" + h.houseId + ";" 
+							 + recommendation.currentSeller.userId);
 			wr.close();
 		}catch(IOException e) {
 			System.out.println("File could not be read or appended to");
@@ -88,14 +89,17 @@ public class databaseWriter {
 							 new FileWriter("houses.txt",false)));				
 			for (int i = 0; i < houses.length; i++) {
 				house h = houses[i];
-				wr.println(h.hasGarden + ";" + h.noOfRooms + ";" + h.noOfBathrooms + ";" + h.floors + ";" + h.price + ";" +
-							 h.livingArea + ";" + h.address + ";" + h.energyLabel+ ";" + h.houseId + ";" + recommendation.currentSeller.userId);
+				wr.println(h.hasGarden + ";" + h.noOfRooms + ";" + h.noOfBathrooms +";" + h.noOfBedrooms + ";" + h.floors + ";" 
+						 + h.price + ";" + h.livingArea + ";" + h.address + ";" + h.energyLabel+ ";" + h.houseId + ";" 
+						 + recommendation.currentSeller.userId);
 			}
 			wr.close();
 			
 		}catch(IOException e) {
 			System.out.println("File could not be read or appended to");
 		}
+	
+		
 	}
 
 }

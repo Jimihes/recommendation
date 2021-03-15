@@ -2,15 +2,15 @@ package recommendation;
 import java.util.*;
 public class admin {
 	//Attributes of the class:
-	static Scanner userInputInt = new Scanner(System.in);
-	static Scanner userInputString = new Scanner(System.in);
-	static Scanner userInputDouble = new Scanner(System.in);
+	static Scanner InputInt = new Scanner(System.in);
+	static Scanner InputString = new Scanner(System.in);
+	static Scanner InputDouble = new Scanner(System.in);
 	
 	//Method of the class:
-    public static void removeBidding() {
+    public void removeBidding() {
 	    System.out.println("Please fill in the following information about the bid you want to remove: ");
 		System.out.println("Bidding id: ");	
-		int bidIdInput = userInputInt.nextInt(); 
+		int bidIdInput = InputInt.nextInt(); 
 		
 		
 		bidding[] oldbiddings = databaseReader.biddingsReader();
@@ -29,5 +29,24 @@ public class admin {
 		}
 		databaseWriter.overwriteBiddingsFile(newbidding);
     }
-
+    
+    public void deleteUser() {
+    	
+		//deleteUser(); 
+		System.out.println("Enter the ID of the user you would like to remove: ");
+		int userToBeRemoved = InputInt.nextInt();
+		user[] users = databaseReader.userReader();
+		user[] newusers = new user[users.length-1];
+		
+		for (int i=0; i < users.length;i++) {
+			if (userToBeRemoved == users[i].userId) {
+				System.out.printf("User %d has been removed successfully\n", users[i].userId);
+				continue;
+			}
+			newusers[i] = users[i];
+			break;
+			}
+		databaseWriter.overwriteUsersFile(newusers);
+		}
+    
 }
