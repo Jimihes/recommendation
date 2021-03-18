@@ -87,7 +87,37 @@ public class seller extends user{
 		
 		
 	}
-	
+	public void removeHouse() {
+		int houseId = house.getHouseId(recommendation.currentSeller.userId);
+		house[] houseList = house.housesReader();
+		house[] newHouseList = house.housesReader();		
+		house yourHouse = new house();
+		for (int i = 0; i < houseList.length; i++) {
+			if(houseList[i].houseId == houseId) {
+				yourHouse=houseList[i];
+			}
+		}
+		System.out.println("Is this the house you want to remove?");
+		System.out.println("Address: " + yourHouse.address);
+		String login = inputStr.nextLine();
+		if (login.equals("y")) {
+			int newIndex = 0;
+			for (int i = 0; i <houseList.length; i++){
+				if (houseList[i].houseId == houseId) {
+					System.out.printf("The house with the address " + yourHouse.address +  " has been removed successfully");
+					continue;
+				}
+				newHouseList[newIndex] = houseList[i];
+				newIndex++;
+			}
+			house.overwriteHousesFile(newHouseList);
+		}else {
+			return;
+		}
+		
+		
+		
+	}
 
 	
 	//this method determines the accepted bidding from the seller 
