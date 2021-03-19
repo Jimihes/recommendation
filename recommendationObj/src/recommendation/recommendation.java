@@ -7,11 +7,14 @@
 
 
 package recommendation;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.*;
 public class recommendation {
 	static Scanner inputStr = new Scanner(System.in);
 	static Scanner inputInt = new Scanner(System.in);
+	static Scanner inputBool = new Scanner(System.in);
+	static Scanner inputDbl = new Scanner(System.in);
 	static int houseCounter; //might decide to move these counters to the corresponding class later
 	static int biddingCounter;
 	static int userCounter;
@@ -30,13 +33,13 @@ public class recommendation {
 		 
 		// 2. ask login
 		System.out.println("Would you like to login? (y/n). Or create a new account (new)");
-		String login = inputStr.nextLine();
+		String login = getInputString();
 		if (login.equals("y")) {
 			System.out.println("logging in");
-			login();
+			user.login();
 		}else if(login.equals("new")) {
 			createAccount();
-			login();
+			user.login();
 		}else { 
 			// user will be quest
 		}
@@ -111,30 +114,6 @@ public class recommendation {
 	}	
 	
 	
-	public static void login() {
-		System.out.println("Enter a username:");
-		String username = inputStr.nextLine();
-		System.out.println("Enter a password:");
-		String password = inputStr.nextLine();
-		String type = user.accountsReader(username, password);
-		currentUser = new user();
-		if (type.equals("buyer")) {
-			currentBuyer = new buyer();
-			currentBuyer.password = password;
-			currentBuyer.username = username;
-		} else if (type.equals("seller")) {
-			currentSeller = new seller();
-			currentSeller.password = password;
-			currentSeller.username = username;
-		} else if(type.equals("admin")) {
-			admin = new admin();
-			admin.username = username;
-			admin.password = password;
-		} else {
-			System.out.println("could not log in. /nSorry :'(");
-		}
-	}
-	
 	//this method initializes the general program counters
 	public static void updateProgram() {
 		generalUpdate(houseCounter,biddingCounter,userCounter);
@@ -199,7 +178,67 @@ public class recommendation {
 			}
 		}
 	
-	
+		public static int getInputInteger() {
+			int inputUser;
+			while(true) {
+				try {
+					inputUser = inputInt.nextInt();
+					break;
+				}
+				catch(InputMismatchException ex) {
+					System.out.println("That is not a valid integer input");
+					inputInt.next();
+				}
+			}
+			return inputUser;
+		}
+		
+		public static String getInputString() {
+			String inputUser;
+			while(true) {
+				try {
+					inputUser = inputStr.nextLine();
+					break;
+				}
+				catch(InputMismatchException ex) {
+					System.out.println("That is not a valid String input");
+					inputStr.next();
+				}
+			}
+			return inputUser; 
+		}
+		
+		public static boolean getInputBool() {
+			boolean inputUser;
+			while(true) {
+				try {
+					inputUser = inputStr.nextBoolean();
+					break;
+				}
+				catch(InputMismatchException ex) {
+					System.out.println("That is not a valid boolean input");
+					inputBool.next();
+				}
+			}
+			return inputUser; 
+		}
+		
+		public static double getInputDbl() {
+			double inputUser;
+			while(true) {
+				try {
+					inputUser = inputDbl.nextDouble();
+					break;
+				}
+				catch(InputMismatchException ex) {
+					System.out.println("That is not a valid boolean input");
+					inputBool.next();
+				}
+			}
+			return inputUser; 
+		}
+		
+		
 	
 }
 	

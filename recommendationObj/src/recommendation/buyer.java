@@ -2,11 +2,16 @@ package recommendation;
 
 public class buyer extends user {
 		
+		public buyer( int userId, String username) {
+			this.userId = userId;
+			this.username = username;
+		}
+	
 		
 		public void createBidding(){
 			//ask for the bidding total
 			System.out.println("What do u wanna bid?");
-			double offer = inputDbl.nextDouble();
+			double offer = recommendation.getInputDbl();
 			bidding bid = new bidding(recommendation.biddingCounter +1, offer, this.userId, 99);
 			
 			//add the new bidding

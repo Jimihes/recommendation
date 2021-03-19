@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 public class seller extends user{
 	
+	public seller(int userId, String username) {
+		this.userId = userId;
+		this.username = username;
+	}
+	
+	
 	public void addHouse() {
 		boolean hasGarden = false;
 		int noOfRooms = -1;
@@ -31,43 +37,43 @@ public class seller extends user{
 				System.out.println("* "+ houseAttributes[j] + "("+ j+")");
 			}
 			System.out.println("Type the attribute number to specify:");
-			userChoice = inputInt.nextInt();
+			userChoice = recommendation.getInputInteger();
 			switch (userChoice) {
 			case 0: //hasGarden
 				System.out.println("Does your house have a garden? (true/false)");
-				hasGarden = inputBool.nextBoolean();
+				hasGarden = recommendation.getInputBool();
 				break;
 			case 1:
 				System.out.println("How many rooms does your house have?");
-				noOfRooms = inputInt.nextInt();
+				noOfRooms = recommendation.getInputInteger();
 				break;
 			case 2:
 				System.out.println("How many bathrooms does your house have?");
-				noOfBathrooms = inputInt.nextInt();
+				noOfBathrooms = recommendation.getInputInteger();
 				break;
 			case 3:
 				System.out.println("How many bathrooms does your house have?");
-				noOfBathrooms = inputInt.nextInt();
+				noOfBathrooms = recommendation.getInputInteger();
 				break;
 			case 4:
 				System.out.println("How many floors does your house have?");
-				floors = inputInt.nextInt();
+				floors = recommendation.getInputInteger();
 				break;
 			case 5:
 				System.out.println("What is the asking price?");
-				price = inputInt.nextInt();
+				price = recommendation.getInputInteger();
 				break;
 			case 6:
 				System.out.println("What is the living area (in sqr meters)?");
-				livingArea = inputInt.nextInt();
+				livingArea = recommendation.getInputInteger();
 				break;
 			case 7:
 				System.out.println("What is the address?");
-				address = inputStr.nextLine();
+				address = recommendation.getInputString();
 				break;
 			case 8:
 				System.out.println("What is the energy label of your house?");
-				energyLabel = inputStr.nextLine();
+				energyLabel = recommendation.getInputString();
 				break;
 			case 9:
 				userChoice = -1;
@@ -88,19 +94,21 @@ public class seller extends user{
 		
 	}
 	public void removeHouse() {
+		//retreive houseId to be removed
 		int houseId = house.getHouseId(recommendation.currentSeller.userId);
 		house[] houseList = house.housesReader();
-		house[] newHouseList = house.housesReader();		
+		house[] newHouseList = house.housesReader();
+		
 		house yourHouse = new house();
 		for (int i = 0; i < houseList.length; i++) {
 			if(houseList[i].houseId == houseId) {
-				yourHouse=houseList[i];
+				yourHouse = houseList[i];
 			}
 		}
-		System.out.println("Is this the house you want to remove?");
+		System.out.println("Is this the house you want to remove? (y/n)");
 		System.out.println("Address: " + yourHouse.address);
-		String login = inputStr.nextLine();
-		if (login.equals("y")) {
+		String login = recommendation.getInputString();
+		if (login == "y") {
 			int newIndex = 0;
 			for (int i = 0; i <houseList.length; i++){
 				if (houseList[i].houseId == houseId) {
@@ -128,10 +136,10 @@ public class seller extends user{
 				//is there a way that the system can read all this information automatically, instead of the user having to fill it in manually? 
 				System.out.println("Please enter the following information about the bid you want to determine:"); 
 				System.out.println("Bidding id: "); 
-				int bidIdInput = inputInt.nextInt();  //enter bidding ID 
+				int bidIdInput = recommendation.getInputInteger();  //enter bidding ID 
 				
 				System.out.println("Do you want to accept (true) or decline (false) this bidding?");
-				boolean accepted = inputBool.nextBoolean();
+				boolean accepted = recommendation.getInputBool();
 				
 				int houseId = house.getHouseId(recommendation.currentSeller.userId);
 	
@@ -170,5 +178,12 @@ public class seller extends user{
 		
 		
 			}
+		
+		public void editHouse() { 
+			
+			admin.editHouse();
+		}
+		
+		
 		}
 

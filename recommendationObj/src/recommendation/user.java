@@ -10,10 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class user{
-	static Scanner inputDbl = new Scanner(System.in);
-	static Scanner inputInt = new Scanner(System.in);
-	static Scanner inputBool = new Scanner(System.in);
-	static Scanner inputStr = new Scanner(System.in);
+
 	int userId;
 	String username;
 	String password;
@@ -39,39 +36,44 @@ public class user{
 				System.out.println("* "+ houseAttributes[j] + "("+ j+")");
 			}
 			System.out.println("Type the attribute number to specify:");
-			userChoice = inputInt.nextInt();
+			
+			//
+			//userChoice = inputInt.nextInt();
+			// option 1
+			userChoice = recommendation.getInputInteger();
+			
 			switch (userChoice) {
 			case 0: //hasGarden
 				System.out.println("Does your house have a garden? (true/false)");
-				desiredHouse.hasGarden = inputBool.nextBoolean();
+				desiredHouse.hasGarden = recommendation.getInputBool();
 				break;
 			case 1:
 				System.out.println("How many rooms does your house have?");
-				desiredHouse.noOfRooms = inputInt.nextInt();
+				desiredHouse.noOfRooms = recommendation.getInputInteger();
 				break;
 			case 2:
 				System.out.println("How many bathrooms does your house have?");
-				desiredHouse.noOfBathrooms = inputInt.nextInt();
+				desiredHouse.noOfBathrooms = recommendation.getInputInteger();
 				break;
 			case 3:
 				System.out.println("How many bathrooms does your house have?");
-				desiredHouse.noOfBathrooms = inputInt.nextInt();
+				desiredHouse.noOfBathrooms = recommendation.getInputInteger();
 				break;
 			case 4:
 				System.out.println("How many floors does your house have?");
-				desiredHouse.floors = inputInt.nextInt();
+				desiredHouse.floors = recommendation.getInputInteger();
 				break;
 			case 5:
 				System.out.println("What is the asking price?");
-				desiredHouse.price = inputInt.nextInt();
+				desiredHouse.price = recommendation.getInputInteger();
 				break;
 			case 6:
 				System.out.println("What is the living area (in sqr meters)?");
-				desiredHouse.livingArea = inputInt.nextInt();
+				desiredHouse.livingArea = recommendation.getInputInteger();
 				break;
 			case 7:
 				System.out.println("What is the energy label of your house?");
-				desiredHouse.energyLabel = inputStr.nextLine();
+				desiredHouse.energyLabel = recommendation.getInputString();
 				break;
 			case 8:
 				userChoice = -1;
@@ -133,10 +135,17 @@ public class user{
 	
 
 	//this methods reads all accounts and checks is anything matches
-		public static String accountsReader(String username, String password){
+		public static void login(){
+			// Retreive username and password to log into account
+			System.out.println("Enter a username:");
+			String username = recommendation.getInputString();
+			System.out.println("Enter a password:");
+			String password = recommendation.getInputString();
+			
+			// helper variables to read data from files
 			String sCurrentLine;
 			String[] uCurrent;
-			String type = "";
+			String type;
 			try {
 				BufferedReader br = new BufferedReader(new FileReader("accounts.txt"));
 				while((sCurrentLine = br.readLine()) != null) {
@@ -144,13 +153,23 @@ public class user{
 					if (username.equals(uCurrent[1]) && password.equals(uCurrent[2])) {
 						System.out.println("You've succesfully logged in as: "+ username);
 						type = uCurrent[3];
+						
+						// Depending on the type of the account, the user will be logged in as corresponding account type
+						if (type == "buyer") {
+							recommendation.currentBuyer = new buyer(Integer.parseInt(uCurrent[0]), uCurrent[1]);
+						} else if (type == "seller") {
+							recommendation.currentSeller = new seller(Integer.parseInt(uCurrent[0]), uCurrent[1]);
+						} else if(type == "admin") {
+							recommendation.admin = new admin();
+						} else {
+							System.out.println("could not log in. /nSorry :'(");
+						}
 					}
 				}
 				br.close();
 			}catch(IOException e){
 				System.out.println("Could not log in");
 			}
-			return type;
 		}
 		
 
@@ -165,20 +184,17 @@ public class user{
 					int i = 0;
 					while((sCurrentLine = br.readLine()) != null) {
 						uCurrent = sCurrentLine.split(";");
-						if(uCurrent[3] == "buyer") {
-							u = new buyer();
-							users[i].username = uCurrent[1];
-							users[i].password = uCurrent[2];
-						}else if(uCurrent[3] == "seller") {
-							u = new seller();
-							users[i].username = uCurrent[1];
-							users[i].password = uCurrent[2];
-						}else if(uCurrent[3] == "admin") {
+						String type = uCurrent[3];
+						// Depending on the type of the account, the user will be logged in as corresponding account type
+						if (type == "buyer") {
+							u = new buyer(Integer.parseInt(uCurrent[0]), uCurrent[1]);
+						} else if (type == "seller") {
+							u = new seller(Integer.parseInt(uCurrent[0]), uCurrent[1]);
+						} else if(type == "admin") {
 							u = new admin();
-							users[i].username = uCurrent[1];
-							users[i].password = uCurrent[2];	
+						} else {
+							System.out.println("Error reading account");
 						}
-							
 						users[i] = u;
 						i++;
 					}
