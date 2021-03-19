@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class user{
@@ -128,7 +129,11 @@ public class user{
 		
 		
 		// Manhattan Distance
-		int[][] recommendedHouses = new int[houses.length][2];
+		// The code below calculates the total manhattan distance in variable sum. 
+		// 		This value is saved in a 2d array. Afterwards, the 2d array is sorted
+		//		creating the desired sorted houseId array. To print the recommended houses
+		//		this method uses the 2d recommendedhouses array and prints to top n houses. 
+		double[][] recommendedHouses = new double[houses.length][2];
 		for (int i=0; i< houses.length;i++) {
 			// house id in first element
 			house h = houses[i];
@@ -141,8 +146,17 @@ public class user{
 			sum += Math.abs(desiredHouse.noOfBathrooms - h.noOfBathrooms);
 			sum += Math.abs(desiredHouse.noOfBedrooms - h.noOfBedrooms);
 			sum += Math.abs(desiredHouse.floors - h.floors);
-			sum += Math.abs(desiredHouse.price);
+			sum += Math.abs((desiredHouse.price - meanPrice) / priceSD);
+			sum += Math.abs((desiredHouse.livingArea - meanlivingArea) / livingAreaSD);
+			recommendedHouses[i][1] = sum;
 		}
+		Arrays.sort(recommendedHouses, (a, b) -> Double.compare(a[0], b[0]));
+		
+		for (int i=0; i < recommendedHouses.length; i++) {
+			System.out.println("House Id is: " + recommendedHouses[i][0]);
+			System.out.println("distance metric is: " + recommendedHouses[i][1]);
+		}
+		
 	}
 	
 

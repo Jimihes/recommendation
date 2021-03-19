@@ -82,7 +82,7 @@ public class seller extends user{
 			if (userChoice != -1) atbs.remove(atbs.indexOf(userChoice));
 		}
 		house h = new house(hasGarden, noOfRooms, noOfBathrooms, noOfBedrooms, floors, price, livingArea, address,
-							energyLabel, recommendation.houseCounter, recommendation.currentSeller.userId, -1);
+							energyLabel, recommendation.houseCounter, recommendation.currentSeller.userId, "no");
 		house.appendHouse(h);
 
 		//update the program that an extra user is added

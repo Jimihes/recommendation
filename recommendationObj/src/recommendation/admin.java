@@ -10,9 +10,11 @@ public class admin extends user{
 	
 	public void removeHouse() {
 		//retreive houseId to be removed
-		int houseId = house.getHouseId(recommendation.admin.userId);
+		System.out.println("Which house do you want to remove? Enter an integer");
+		int houseId = recommendation.getInputInteger();
+
 		house[] houseList = house.housesReader();
-		house[] newHouseList = house.housesReader();
+		house[] newHouseList = new house[houseList.length -1];
 		
 		house yourHouse = new house();
 		for (int i = 0; i < houseList.length; i++) {
@@ -23,7 +25,8 @@ public class admin extends user{
 		System.out.println("Is this the house you want to remove? (y/n)");
 		System.out.println("Address: " + yourHouse.address);
 		String login = recommendation.getInputString();
-		if (login == "y") {
+		System.out.println(login.equals("y"));
+		if (login.equals("y")) {
 			int newIndex = 0;
 			for (int i = 0; i <houseList.length; i++){
 				if (houseList[i].houseId == houseId) {
@@ -35,6 +38,7 @@ public class admin extends user{
 			}
 			house.overwriteHousesFile(newHouseList);
 		}else {
+			System.out.println("did not remove house");
 			return;
 		}
 	}

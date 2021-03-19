@@ -19,7 +19,7 @@ public class house {
 	String energyLabel;
 	int houseId;
 	int sellerId;
-	int acceptedBid;
+	String acceptedBid;
 
 	public house() {
 		// this constructor is used to solve non return error
@@ -31,7 +31,7 @@ public class house {
 	// third test comment
 
 	public house(boolean hasGarden, int noOfRooms, int noOfBathrooms,int noOfBedrooms, int floors, double price, double livingArea,
-			String address, String energyLabel, int houseId, int sellerId, int acceptedBid) {
+			String address, String energyLabel, int houseId, int sellerId, String acceptedBid) {
 		this.hasGarden = hasGarden;
 		this.noOfRooms = noOfRooms;
 		this.noOfBathrooms = noOfBathrooms;
@@ -48,6 +48,8 @@ public class house {
 	public static int getHouseId(int sellerId) {
 		house[] x = housesReader();
 		int id = 0;
+		
+		//if a seller calls this method
 		for (int i = 0; i < x.length; i++) {
 			if (x[i].sellerId == sellerId) {
 				id = x[i].houseId;
@@ -57,7 +59,7 @@ public class house {
 
 	}
 	//this method reads all house objects into an array
-		public static house[] housesReader( ){
+		public static house[] housesReader(){
 			String sCurrentLine;
 			String[] uCurrent;
 			house[] houses = new house[0];
@@ -66,6 +68,8 @@ public class house {
 				int j=0;
 				while((sCurrentLine = br.readLine()) != null) j++;
 				houses = new house[j];
+				br.close();
+				br = new BufferedReader(new FileReader("houses.txt"));
 				int i = 0;
 				while((sCurrentLine = br.readLine()) != null) {
 					uCurrent = sCurrentLine.split(";");
@@ -73,8 +77,9 @@ public class house {
 							Integer.parseInt(uCurrent[2]),Integer.parseInt(uCurrent[3]),Integer.parseInt(uCurrent[4]),
 							Double.parseDouble(uCurrent[5]), Double.parseDouble(uCurrent[6]),
 							uCurrent[7],uCurrent[8],Integer.parseInt(uCurrent[9]), 
-							Integer.parseInt(uCurrent[10]), Integer.parseInt(uCurrent[11]));				
+							Integer.parseInt(uCurrent[10]), uCurrent[11]);				
 					houses[i] = h;
+					System.out.println(h.houseId);
 					i++;
 				}
 				br.close();
@@ -98,7 +103,7 @@ public class house {
 							Integer.parseInt(uCurrent[2]),Integer.parseInt(uCurrent[3]),Integer.parseInt(uCurrent[4]),
 							Double.parseDouble(uCurrent[5]), Double.parseDouble(uCurrent[6]),
 							uCurrent[7],uCurrent[8],Integer.parseInt(uCurrent[9]), 
-							Integer.parseInt(uCurrent[10]), Integer.parseInt(uCurrent[11]));
+							Integer.parseInt(uCurrent[10]), uCurrent[11]);
 				}}
 				br.close();
 				
@@ -127,9 +132,10 @@ public class house {
 								 new FileWriter("houses.txt",false)));				
 				for (int i = 0; i < houses.length; i++) {
 					house h = houses[i];
+					
 					wr.println(h.hasGarden + ";" + h.noOfRooms + ";" + h.noOfBathrooms +";" + h.noOfBedrooms + ";" + h.floors + ";" 
 							 + h.price + ";" + h.livingArea + ";" + h.address + ";" + h.energyLabel+ ";" + h.houseId + ";" 
-							 + recommendation.currentSeller.userId);
+							 + h.sellerId + ";" + h.acceptedBid);
 				}
 				wr.close();
 				
