@@ -205,7 +205,7 @@ public class recommendation {
 			
 			try {
 				PrintWriter wr = new PrintWriter(new BufferedWriter(
-								 new FileWriter("general.txt",true)));				
+								 new FileWriter("general.txt",false)));				
 				wr.println(houseId +";"+ biddingId +";"+ userId);
 				wr.close();
 			}catch(IOException e) {
@@ -273,7 +273,6 @@ public class recommendation {
 			return inputUser; 
 		}
 		
-		//github test
 	
 }
 	
