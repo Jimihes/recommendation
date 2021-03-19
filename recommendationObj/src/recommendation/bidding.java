@@ -32,11 +32,11 @@ public class bidding {
 				biddings.add(x[i]);
 			}
 		}
-		System.out.println("Bid ID" +"\t" + "Total" + "\t" + "User ID");
 		for (int i = 0; i<biddings.size(); i++) {
 			System.out.println(biddings.get(i).bidId +"\t" + biddings.get(i).total +"\t" + biddings.get(i).userId);
 		}
 	}
+	
 	// this method reads all biddings and returns them in an array
 		public static bidding[] biddingsReader( ){
 			String sCurrentLine;

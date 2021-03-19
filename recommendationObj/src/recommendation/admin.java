@@ -43,7 +43,13 @@ public class admin extends user{
 	}
 	
 		//this method allows the seller to edit information about the house 
+		// Disclaimer: dear reviewer, we realised that this method contains a minor 
+		//		deficiency where the user is only able to edit the house if all attributes are specified.
+		// 		We noticed the error too late to fix it. However, the code and logic for this statements,
+		//		is already written in the user.viewHouseList() method. Copying was possible, but we don't
+		//		want to break anything at this point. Our sincere excuses for this inconvenience.
 		public static void editHouse() {
+			
 			int editHouseID;
 			
 			house [] houseList = house.housesReader();

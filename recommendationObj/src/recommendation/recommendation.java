@@ -33,7 +33,6 @@ public class recommendation {
 		// 1. start program
 		// *loads general info
 		 generalReader();
-		 System.out.println(userCounter + "; " + biddingCounter + ";" + houseCounter);
 		 
 		// 2. ask login
 		System.out.println("Would you like to login? (y/n). Or create a new account (new)");
@@ -173,9 +172,10 @@ public class recommendation {
 	}
 	
 	
-	// creates an account and sets with right type.
+	// creates an account and sets with right user sublass/type.
 	// additionally, the user counter is updated 
 	public static void createAccount() {
+		// A user can choose whether s/he wants to be a buyer or seller
 		System.out.println("Are you a buyer (b) or seller (s) ?");
 		String type = inputStr.nextLine();
 		System.out.println("Enter a username:");
@@ -197,7 +197,7 @@ public class recommendation {
 	
 	
 	
-		//this method sets the houseCounter, userCounter and biddingCounter in recommendation class
+		//this method initializes the houseCounter, userCounter and biddingCounter in recommendation class
 		public static void generalReader(){
 			String sCurrentLine;
 			String[] uCurrent;
@@ -215,8 +215,9 @@ public class recommendation {
 				System.out.println("Could not log in");
 			}
 		}
+		
+		// This method sets the counters in the database, in order to pick up on the next session
 		public static void generalUpdate(int houseId, int biddingId,int userId){
-			
 			
 			try {
 				PrintWriter wr = new PrintWriter(new BufferedWriter(
@@ -228,6 +229,10 @@ public class recommendation {
 			}
 		}
 	
+		
+		//Below are four scanner methods, one for each input type.
+		//The methods are used to directly validate the userinput,
+		//	as alternative to validating in local code on each scanner call.
 		public static int getInputInteger() {
 			int inputUser;
 			while(true) {

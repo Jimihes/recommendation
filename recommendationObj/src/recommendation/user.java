@@ -9,6 +9,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
+// This class is the user class. Each user of the program who logs into an account becomes a user.
+// 	While logging in, the user will be set to a subclass. It allows all users to inherit generic
+//		user functions, while allowing specific functions for each 'child class'.
+// Setters are created for username and password. However, no real validation is done in these setters,
+//		yet, as the username and password attributes are not called apart from creating accounts and logging in.
+//		Validating the calling user class will be updated when needed.
 public class user{
 
 	int userId;
@@ -22,14 +29,18 @@ public class user{
 		this.userId = userId;
 	}
 	
+	// This function allows the user to view the houses. All users, as well as the guest, can call this.
 	public void viewHouseList() {
 		
 		//This code is identical to the seller.addhouse() except for the use of the resulting house object
+		//The desiredHouse is used to save the criteria for the house our user wants. 
+		//		This object is also used to compare to all houses and compute manhattan's distances.
 		house desiredHouse = new house();
 		
 		//list of the house attributes the user can specify
 		String[] houseAttributes = {"available garden","Number of rooms", "Number of bathrooms", "Number of bedrooms", 
 									"Number of floors", "Price", "Living area", "Energy label","exit"};
+		
 		// create arraylist with a loop to keep track of the specified attributes in wile loop below
 		ArrayList<Integer> atbs = new ArrayList<Integer>() ;
 		for (int i=0 ; i < houseAttributes.length ; i++) atbs.add(i);
@@ -42,13 +53,20 @@ public class user{
 				int j = atbs.get(i);
 				System.out.println("* "+ houseAttributes[j] + "("+ j+")");
 			}
-
+			
+			// input validating do-while loop. The user can only give a number corresponding
+			//		to a attribute that has not yet been specified. 
 			do {
 				System.out.println("Type the attribute number to specify:");
 			userChoice = recommendation.getInputInteger();
 			
 			}while(!atbs.contains(userChoice));
 			
+			// Switch case statement to specify the attributes
+			// An exit option is incorporated. When the user has not yet specified all attributes,
+			// 		before exiting, default values will be used. 
+			// Warning: manhattan distance calculations might be less usefull when attributes are
+			//		left unspecified.
 			switch (userChoice) {
 			case 0: //hasGarden
 				System.out.println("Does your house have a garden? (true/false)");
@@ -159,7 +177,7 @@ public class user{
 			recommendedHouses[i][1] = houses[i].houseId;
 		}
 		Arrays.sort(recommendedHouses, (a, b) -> Double.compare(a[0], b[0]));
-		
+		System.out.println("The best 5 matches are showed below.");
 		for (int i=0; i < 5; i++) {
 			for (int j=0; j < houses.length; j++) {
 				if (houses[j].houseId == ((int)recommendedHouses[i][1])) {
@@ -240,10 +258,10 @@ public class user{
 					} 
 				}
 				if (fail ==true){
-					System.out.println("could not log in. /nSorry :'(");
+					System.out.println("Could not log in. Sorry :'(");
 					System.out.println("Would you like to try again? (y/n)" );
 					String again = recommendation.getInputString();
-					if (again == "y") {
+					if (again.equals("y")) {
 						login() ;
 					}else {
 					}

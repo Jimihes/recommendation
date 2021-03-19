@@ -12,7 +12,7 @@ public class buyer extends user {
 		public buyer() {
 		}
 		
-		
+		//This method allows the buyer to view his/her saved houses list
 		public void viewSavedList() {
 			System.out.println("----------------------------------\n"
 					+ "The following houses are in your favorite list");
@@ -20,9 +20,11 @@ public class buyer extends user {
 				BufferedReader br = new BufferedReader(new FileReader("favouritelist.txt"));
 				String sCurrentLine;
 				String[] uCurrent;
+				int favCounter=0;
 				while((sCurrentLine = br.readLine()) != null) {
 					uCurrent = sCurrentLine.split(";");
 					if (Integer.parseInt(uCurrent[0]) == this.userId) {
+						favCounter++;
 						int houseId = Integer.parseInt(uCurrent[0]);
 						house h = house.houseReader(houseId);
 						System.out.println(" * Address:" + h.address + ", house ID: " +h.houseId);
@@ -30,6 +32,10 @@ public class buyer extends user {
 					}
 				}
 				br.close();
+				if (favCounter == 0) {
+					System.out.println("You have no favorite homes");
+					System.out.println("------------------------------------");
+				}
 			} catch(IOException e){
 				System.out.println("Could not read savedList;");
 			}
@@ -38,6 +44,10 @@ public class buyer extends user {
 		
 		
 		public void createBidding(int houseId){
+			
+			house h = house.houseReader(houseId);
+			if (h.houseId != -1) {
+
 			//ask for the bidding total
 			System.out.println("What do you want to bid?");
 			double offer = recommendation.getInputDbl();
@@ -51,11 +61,13 @@ public class buyer extends user {
 			recommendation.generalUpdate(recommendation.houseCounter, 
 											 recommendation.biddingCounter, 
 											 recommendation.userCounter);
+		}else System.out.println("Did not find a house with that house id");
 		}
 		
-		
 		public void viewHousePage(int houseId) {	// I think this belongs to the class house
+			
 			house h = house.houseReader(houseId);
+			
 			// Printing house attributes
 			System.out.println("Address: " + h.address + "\n"+
 				"Number of rooms: " + h.noOfRooms+ "\n"+
