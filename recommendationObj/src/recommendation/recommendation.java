@@ -39,6 +39,7 @@ public class recommendation {
 			user.login();
 		}else if(login.equals("new")) {
 			createAccount();
+			System.out.println("Please fill in your username and password to login");
 			user.login();
 		}else { 
 			// user will be quest
@@ -139,7 +140,7 @@ public class recommendation {
 			String username = inputStr.nextLine();
 			System.out.println("Enter a password:");
 			String password = inputStr.nextLine();
-			if (type == "b") {
+			if (type.equals("b")) {
 				user.appendAccounts(1,username,password,"buyer");
 			}else {
 				user.appendAccounts(1, username, password, "seller");
@@ -147,6 +148,7 @@ public class recommendation {
 			//update the program that an extra user is added
 			recommendation.userCounter ++;
 			generalUpdate(houseCounter, biddingCounter, userCounter);
+			System.out.println("Succesfully created account");
 		}
 		
 
@@ -217,11 +219,11 @@ public class recommendation {
 			boolean inputUser;
 			while(true) {
 				try {
-					inputUser = inputStr.nextBoolean();
+					inputUser = inputBool.nextBoolean();
 					break;
 				}
 				catch(InputMismatchException ex) {
-					System.out.println("That is not a valid boolean input");
+					System.out.println("That is not a valid boolean input\nPlease fill in a boolean value");
 					inputBool.next();
 				}
 			}
@@ -236,7 +238,7 @@ public class recommendation {
 					break;
 				}
 				catch(InputMismatchException ex) {
-					System.out.println("That is not a valid boolean input");
+					System.out.println("That is not a valid double input");
 					inputBool.next();
 				}
 			}

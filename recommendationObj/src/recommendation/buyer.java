@@ -24,28 +24,21 @@ public class buyer extends user {
 											 recommendation.userCounter);
 		}
 		
-		public void viewHouseList(){
-			// code to ask criteria
-			
-			
-			// code to view all houses
-			
-			// if user wants to view single house:
-			house h= new house();
-			viewHousePage(h);
-		}
 		
-		public void viewHousePage(house h) {	// I think this belongs to the class house 
-			System.out.println("Address: " + h.address);
-			System.out.println("Number of rooms: " + h.noOfRooms);
-			System.out.println("Number of bathrooms: " + h.noOfBathrooms);
-			System.out.println("Number of bedrooms: " + h.noOfBedrooms);
-			System.out.println("Garden (yes/no): " + h.hasGarden);
-			System.out.println("Energy label: " + h.energyLabel);
-			System.out.println("Number of floors: " + h.floors);
-			System.out.println("Living area: " + h.livingArea);
-			System.out.println("Price: " + h.price);
-			
+		public void viewHousePage(int houseId) {	// I think this belongs to the class house
+			house h = house.houseReader(houseId);
+			// Printing house attributes
+			System.out.println("Address: " + h.address + "\n"+
+				"Number of rooms: " + h.noOfRooms+ "\n"+
+				"Number of bathrooms: " + h.noOfBathrooms+ "\n"+
+				"Number of bedrooms: " + h.noOfBedrooms+ "\n"+
+				"Garden (yes/no): " + h.hasGarden+ "\n"+
+				"Energy label: " + h.energyLabel+ "\n"+
+				"Number of floors: " + h.floors+ "\n"+
+				"Living area: " + h.livingArea+ "\n"+
+				"Price: " + h.price+ "\n"+
+				"--------------------------------------------------------");
+			System.out.println("The current biddings on this house are:");	
 		
 		}
 	}

@@ -79,7 +79,6 @@ public class house {
 							uCurrent[7],uCurrent[8],Integer.parseInt(uCurrent[9]), 
 							Integer.parseInt(uCurrent[10]), uCurrent[11]);				
 					houses[i] = h;
-					System.out.println(h.houseId);
 					i++;
 				}
 				br.close();
@@ -98,7 +97,7 @@ public class house {
 				BufferedReader br = new BufferedReader(new FileReader("houses.txt"));
 				while((sCurrentLine = br.readLine()) != null) {
 					uCurrent = sCurrentLine.split(";");
-					if (Integer.parseInt(uCurrent[8]) == houseId) {
+					if (Integer.parseInt(uCurrent[9]) == houseId) {
 					h = new house(Boolean.parseBoolean(uCurrent[0]), Integer.parseInt(uCurrent[1]),
 							Integer.parseInt(uCurrent[2]),Integer.parseInt(uCurrent[3]),Integer.parseInt(uCurrent[4]),
 							Double.parseDouble(uCurrent[5]), Double.parseDouble(uCurrent[6]),

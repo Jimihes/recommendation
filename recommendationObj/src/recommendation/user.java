@@ -31,7 +31,7 @@ public class user{
 		int userChoice = 100;
 		// if the user wants to stop specifying attributes, s/he fills -1 in to exit
 		while (userChoice != -1) {
-			System.out.println("Do you want to specify a characteristic of your home?");
+			System.out.println("To find your dreamhome, please fill in all criteria.");
 			for (int i = 0; i < atbs.size(); i++) {
 				int j = atbs.get(i);
 				System.out.println("* "+ houseAttributes[j] + "("+ j+")");
@@ -137,9 +137,8 @@ public class user{
 		for (int i=0; i< houses.length;i++) {
 			// house id in first element
 			house h = houses[i];
-			recommendedHouses[i][0] = houses[i].houseId;
 			
-			// distance metric in second element
+			// distance metric in first element
 			double sum = 0;
 			sum = desiredHouse.hasGarden == h.hasGarden ? sum ++ : sum;
 			sum += Math.abs(desiredHouse.noOfRooms - h.noOfRooms);
@@ -148,14 +147,47 @@ public class user{
 			sum += Math.abs(desiredHouse.floors - h.floors);
 			sum += Math.abs((desiredHouse.price - meanPrice) / priceSD);
 			sum += Math.abs((desiredHouse.livingArea - meanlivingArea) / livingAreaSD);
-			recommendedHouses[i][1] = sum;
+			recommendedHouses[i][0] = sum;
+
+			// house ID in second element
+			recommendedHouses[i][1] = houses[i].houseId;
 		}
 		Arrays.sort(recommendedHouses, (a, b) -> Double.compare(a[0], b[0]));
 		
-		for (int i=0; i < recommendedHouses.length; i++) {
-			System.out.println("House Id is: " + recommendedHouses[i][0]);
-			System.out.println("distance metric is: " + recommendedHouses[i][1]);
+		for (int i=0; i < 5; i++) {
+			System.out.println("House Id is: " + (int) recommendedHouses[i][1]);
+			for (int j=0; j < houses.length; j++) {
+				if (houses[j].houseId == ((int)recommendedHouses[i][1])) {
+					house h = houses[j];
+					System.out.println("-------------------------------------------------\n"
+							+ "House " + i + " is: ");
+					System.out.println(" * Address: " + h.address);
+					System.out.println(" * Number of rooms: " + h.noOfRooms);
+					System.out.println(" * Number of bathrooms: " + h.noOfBathrooms);
+					System.out.println(" * Number of bedrooms: " + h.noOfBedrooms);
+					System.out.println(" * Garden (yes/no): " + h.hasGarden);
+					System.out.println(" * Energy label: " + h.energyLabel);
+					System.out.println(" * Number of floors: " + h.floors);
+					System.out.println(" * Living area: " + h.livingArea);
+					System.out.println(" * Price: " + h.price);
+				}
+			}
 		}
+		
+		if (recommendation.currentBuyer != null) {
+			System.out.println("Would you like to view a house page? \n"
+					+ "Enter the corresponding number (-1 to exit)");
+			int viewChoice = recommendation.getInputInteger();
+			System.out.println("*****************************************************");
+			if (viewChoice > 5) {
+				// The user specified a non existing number
+				System.out.println("Specified number not available\nPlease fill in a new number:");
+				viewChoice = recommendation.getInputInteger();
+			}else if(viewChoice == -1) {
+				// nothing happens and program continues
+			}else {
+				recommendation.currentBuyer.viewHousePage( (int) recommendedHouses[viewChoice][1]);
+			}}
 		
 	}
 	
