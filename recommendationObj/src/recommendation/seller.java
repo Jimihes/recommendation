@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class seller extends user{
 	
 	public seller(int userId, String username) {
-		this.userId = userId;
-		this.username = username;
+		this.setUserId(userId);
+		this.setUsername(username);
 	}
 	
 	

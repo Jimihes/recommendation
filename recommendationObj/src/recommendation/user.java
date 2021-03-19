@@ -13,8 +13,15 @@ import java.util.Scanner;
 public class user{
 
 	int userId;
-	String username;
-	String password;
+	private String username;
+	private String password;
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	
 	public void viewHouseList() {
 		
@@ -217,7 +224,9 @@ public class user{
 						type = uCurrent[3];
 						// Depending on the type of the account, the user will be logged in as corresponding account type
 						if (type.equals("buyer")) {
-							recommendation.currentBuyer = new buyer(Integer.parseInt(uCurrent[0]), uCurrent[1]);
+							recommendation.currentBuyer = new buyer();
+							recommendation.currentBuyer.setUsername(username);
+							recommendation.currentBuyer.setUserId(Integer.parseInt(uCurrent[0]));
 						} else if (type.equals("seller")) {
 							recommendation.currentSeller = new seller(Integer.parseInt(uCurrent[0]), uCurrent[1]);
 						} else if(type.equals("admin")) {
@@ -255,7 +264,9 @@ public class user{
 						String type = uCurrent[3];
 						// Depending on the type of the account, the user will be logged in as corresponding account type
 						if (type == "buyer") {
-							u = new buyer(Integer.parseInt(uCurrent[0]), uCurrent[1]);
+							u = new buyer();
+							u.setUsername(uCurrent[1]);
+							u.setUserId(Integer.parseInt(uCurrent[0]));
 						} else if (type == "seller") {
 							u = new seller(Integer.parseInt(uCurrent[0]), uCurrent[1]);
 						} else if(type == "admin") {

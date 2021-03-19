@@ -27,9 +27,7 @@ public class recommendation {
 		
 		// 1. start program
 		// *loads general info
-		 loadProgram();
-		 System.out.println("users" + userCounter + "houses" + houseCounter + "users: " + userCounter);
-		
+		 generalReader();
 		 
 		// 2. ask login
 		System.out.println("Would you like to login? (y/n). Or create a new account (new)");
@@ -153,11 +151,6 @@ public class recommendation {
 		generalUpdate(houseCounter,biddingCounter,userCounter);
 	}
 	
-	// this method loads the general program counters
-	public static void loadProgram() {
-		generalReader();
-	}
-	
 	
 		// creates an account and sets with right type.
 		// additionally, the user counter is updated 
@@ -187,6 +180,7 @@ public class recommendation {
 		public static void generalReader(){
 			String sCurrentLine;
 			String[] uCurrent;
+			
 			try {
 				BufferedReader br = new BufferedReader(new FileReader("general.txt"));
 				while((sCurrentLine = br.readLine()) != null) {

@@ -6,11 +6,10 @@ import java.io.IOException;
 
 public class buyer extends user {
 		
-		public buyer( int userId, String username) {
-			this.userId = userId;
-			this.username = username;
+		public buyer() {
 		}
-	
+		
+		
 		public void viewSavedList() {
 			System.out.println("----------------------------------\n"
 					+ "The following houses are in your favorite list");

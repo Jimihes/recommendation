@@ -120,6 +120,7 @@ public class house {
 								 + h.price + ";" + h.livingArea + ";" + h.address + ";" + h.energyLabel+ ";" + h.houseId + ";" 
 								 + recommendation.currentSeller.userId);
 				wr.close();
+				System.out.println("your house " + h.address + " is added succesfully");
 			}catch(IOException e) {
 				System.out.println("File could not be read or appended to");
 			}
