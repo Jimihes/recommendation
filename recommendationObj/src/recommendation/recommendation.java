@@ -68,6 +68,7 @@ public class recommendation {
 			System.out.println("* add a house (1)");
 			System.out.println("* view biddings on your house (2)");
 			System.out.println("* determine bidding (3)");
+			System.out.println("* edit your house (4)");
 			System.out.println("Enter activity number here:");
 			int userChoice = inputInt.nextInt();
 			
@@ -83,6 +84,10 @@ public class recommendation {
 				currentSeller.determineBidding(); 
 				//if sold: automatically delete this house (not a user choice)
 				break;
+			case 4:
+				currentSeller.editHouse(); 
+				//if sold: automatically delete this house (not a user choice)
+				break;
 			}
 		} else if(admin != null) {
 			System.out.println("* remove a house (1)");
@@ -93,10 +98,10 @@ public class recommendation {
 			int userChoice = inputInt.nextInt();
 			switch (userChoice) {
 			case 1:
-				//removeHouse();
+				admin.removeHouse();
 				break;
 			case 2:
-				//editHouse();
+				admin.editHouse();
 				break;
 			case 3:
 				admin.removeBidding(); 

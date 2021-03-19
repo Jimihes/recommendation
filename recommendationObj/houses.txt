@@ -1,1 +1,0 @@
-houseId;address;price;hasGarden;noOfRooms;noOfBathrooms;floors;livingArea;energyLabel;biddings

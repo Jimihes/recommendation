@@ -179,6 +179,7 @@ public class seller extends user{
 		
 			}
 		
+		// The code and logic of editing a house is extensive and therefore loaned from the admin class
 		public void editHouse() { 
 			
 			admin.editHouse();

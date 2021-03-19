@@ -40,15 +40,17 @@ public class admin extends user{
 	}
 	
 		//this method allows the seller to edit information about the house 
-		public void editHouse() {
+		public static void editHouse() {
+			int editHouseID;
+			
 			house [] houseList = house.housesReader();
 			
 			
 			System.out.println("Please enter your house ID: "); 
 			//This method can be called by a seller. If so, the sellers house will be edited.
 			if (recommendation.currentSeller == null) {
-				int editHouseId = recommendation.currentSeller.houseId;
-			}else; int editHouseID = recommendation.getInputInteger();
+				editHouseID = house.getHouseId(recommendation.currentSeller.userId);
+			}else; editHouseID = recommendation.getInputInteger();
 
 			System.out.println("Please fill in what house characteristic you want to change: "); 
 			System.out.println("1 = presence of Garden"); 
