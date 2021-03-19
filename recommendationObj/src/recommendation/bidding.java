@@ -16,10 +16,10 @@ public class bidding {
 	String status = "undefined"; // the seller can set this to accepted or declined
 	
 	public bidding(int biddingId,double price, int userId, int houseId) {
-		total = price;
-		bidId = recommendation.biddingCounter;
+		this.bidId = biddingId;
+		this.total = price;
 		this.userId = userId;
-		houseId = 2;
+		this.houseId = houseId;
 		
 	}
 	
@@ -60,7 +60,7 @@ public class bidding {
 				br.close();
 				
 			}catch(IOException e){
-				System.out.println("Could not read houses");
+				System.out.println("Could not read biddings");
 			}
 			return biddings;
 		}

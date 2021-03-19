@@ -40,7 +40,6 @@ public class buyer extends user {
 				"--------------------------------------------------------");
 			System.out.println("The current biddings on this house are:");
 			bidding[] biddings = bidding.biddingsReader();
-			System.out.println(biddings[0].houseId);
 			
 			int counter = 0;
 			for (int i = 0; i < biddings.length;i++) {
@@ -51,7 +50,7 @@ public class buyer extends user {
 			}
 			System.out.println("Do you want to place a bidding on this house? (y/n)");
 			String bid = recommendation.getInputString();
-			if (bid == "y") {
+			if (bid.equals("y")) {
 				recommendation.currentBuyer.createBidding(h.houseId);
 			}
 		
