@@ -8,11 +8,11 @@ public class buyer extends user {
 		}
 	
 		
-		public void createBidding(){
+		public void createBidding(int houseId){
 			//ask for the bidding total
 			System.out.println("What do u wanna bid?");
 			double offer = recommendation.getInputDbl();
-			bidding bid = new bidding(recommendation.biddingCounter +1, offer, this.userId, 99);
+			bidding bid = new bidding(recommendation.biddingCounter +1, offer, this.userId, houseId);
 			
 			//add the new bidding
 			bidding.appendBiddings(bid);
@@ -38,7 +38,22 @@ public class buyer extends user {
 				"Living area: " + h.livingArea+ "\n"+
 				"Price: " + h.price+ "\n"+
 				"--------------------------------------------------------");
-			System.out.println("The current biddings on this house are:");	
+			System.out.println("The current biddings on this house are:");
+			bidding[] biddings = bidding.biddingsReader();
+			System.out.println(biddings[0].houseId);
+			
+			int counter = 0;
+			for (int i = 0; i < biddings.length;i++) {
+				if (biddings[i].houseId == h.houseId) {
+					counter ++;
+					System.out.println(" * Bidding " + counter+ " :" + biddings[i].total);
+				}
+			}
+			System.out.println("Do you want to place a bidding on this house? (y/n)");
+			String bid = recommendation.getInputString();
+			if (bid == "y") {
+				recommendation.currentBuyer.createBidding(h.houseId);
+			}
 		
 		}
 	}

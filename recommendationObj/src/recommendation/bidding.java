@@ -47,7 +47,9 @@ public class bidding {
 				int j=0;
 				while((sCurrentLine = br.readLine()) != null) j++;
 				biddings = new bidding[j];
+				br.close();
 				int i = 0;
+				br = new BufferedReader(new FileReader("biddings.txt"));
 				while((sCurrentLine = br.readLine()) != null) {
 					uCurrent = sCurrentLine.split(";");
 					bidding b = new bidding(Integer.parseInt(uCurrent[0]),Double.parseDouble(uCurrent[1]),Integer.parseInt(uCurrent[2]),

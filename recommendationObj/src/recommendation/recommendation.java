@@ -45,13 +45,15 @@ public class recommendation {
 			// user will be quest
 		}
 		
-		
+		boolean active = true;
+		while(active == true) {
 		// 3.use program
 		System.out.println("Which of the following would you like to do? ");
 		if (currentBuyer != null) {
 			System.out.println("* View the houses (1)");
 			System.out.println("* Place a bid on a house (2)");
 			System.out.println("* View saved house list (3)");
+			System.out.println("* Exit program (-1)");
 			System.out.println("Enter activity number here:");
 			int userChoice = inputInt.nextInt();
 			switch (userChoice) {
@@ -59,10 +61,16 @@ public class recommendation {
 				currentBuyer.viewHouseList(); //Not finished yet !!
 				break;
 			case 2:
-				currentBuyer.createBidding();
+				System.out.println("On which house do you want to place a bidding? \n"
+						+ "Fill in a house ID number here:");
+				int houseId = getInputInteger();
+				currentBuyer.createBidding(houseId);
 				break;
 			case 3:
 				//viewSavedList();
+				break;
+			case -1:
+				active = false; 
 				break;
 			}
 		} else if(currentSeller != null) {
@@ -70,6 +78,7 @@ public class recommendation {
 			System.out.println("* view biddings on your house (2)");
 			System.out.println("* determine bidding (3)");
 			System.out.println("* edit your house (4)");
+			System.out.println("* Exit program (-1)");
 			System.out.println("Enter activity number here:");
 			int userChoice = inputInt.nextInt();
 			
@@ -89,12 +98,16 @@ public class recommendation {
 				currentSeller.editHouse(); 
 				//if sold: automatically delete this house (not a user choice)
 				break;
+			case -1:
+				active = false; 
+				break;
 			}
 		} else if(admin != null) {
 			System.out.println("* remove a house (1)");
 			System.out.println("* edit a house offering (2)");
 			System.out.println("* remove a bidding (3)");
 			System.out.println("* delete a user (4)");
+			System.out.println("* Exit program (-1)");
 			System.out.println("Enter activity number here:");
 			int userChoice = inputInt.nextInt();
 			switch (userChoice) {
@@ -110,13 +123,28 @@ public class recommendation {
 			case 4:
 				admin.deleteUser(); 
 				break;
+			case -1:
+				active = false; 
+				break;
 			}
 		} else { //reaching this means the user is a guest
+			System.out.println("(You've started the program as a guest user)");
+			user guest = new user();
+			System.out.println("* View the houses (1)");
+			System.out.println("* Exit program (-1)");
+			System.out.println("Enter activity number here:");
+			int userChoice = inputInt.nextInt();
+			switch (userChoice) {
+			case 1:
+				guest.viewHouseList();
+				break;
+			case -1:
+				active = false; 
+				break;
 			
 		}
-		
-		
-
+		}
+		}
 	}	
 	
 	

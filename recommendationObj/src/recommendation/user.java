@@ -155,12 +155,12 @@ public class user{
 		Arrays.sort(recommendedHouses, (a, b) -> Double.compare(a[0], b[0]));
 		
 		for (int i=0; i < 5; i++) {
-			System.out.println("House Id is: " + (int) recommendedHouses[i][1]);
 			for (int j=0; j < houses.length; j++) {
 				if (houses[j].houseId == ((int)recommendedHouses[i][1])) {
 					house h = houses[j];
 					System.out.println("-------------------------------------------------\n"
-							+ "House " + i + " is: ");
+							+ "House " + i + ".");
+					System.out.println(" * House ID: " + (int) recommendedHouses[i][1]);
 					System.out.println(" * Address: " + h.address);
 					System.out.println(" * Number of rooms: " + h.noOfRooms);
 					System.out.println(" * Number of bathrooms: " + h.noOfBathrooms);
@@ -206,8 +206,12 @@ public class user{
 			String type;
 			try {
 				BufferedReader br = new BufferedReader(new FileReader("accounts.txt"));
+				
+				//If the username password combination is not found, logging in is failed
+				boolean fail = true;
 				while((sCurrentLine = br.readLine()) != null) {
 					uCurrent = sCurrentLine.split(";");
+					
 					if (username.equals(uCurrent[1]) && password.equals(uCurrent[2])) {
 						System.out.println("You've succesfully logged in as: "+ username);
 						type = uCurrent[3];
@@ -219,9 +223,16 @@ public class user{
 						} else if(type.equals("admin")) {
 							recommendation.admin = new admin();
 						} else {
-							System.out.println("could not log in. /nSorry :'(");
+							System.out.println("An error appeared setting the user subclass");
 						}
-					}
+						fail = false;
+					} 
+				}
+				if (fail  ==true){
+					System.out.println("could not log in. /nSorry :'(");
+					System.out.println("Would you like to try again? (y/n)" );
+					String again = recommendation.getInputString();
+					if (again == "y");login();
 				}
 				br.close();
 			}catch(IOException e){
