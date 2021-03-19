@@ -57,7 +57,7 @@ public class user{
 				break;
 			case 3:
 				System.out.println("How many bathrooms does your house have?");
-				desiredHouse.noOfBathrooms = recommendation.getInputInteger();
+				desiredHouse.noOfBedrooms = recommendation.getInputInteger();
 				break;
 			case 4:
 				System.out.println("How many floors does your house have?");
@@ -104,7 +104,7 @@ public class user{
 		double meanPrice = priceSum / houses.length;
 		double meanlivingArea = livingAreaSum / houses.length;
 		
-		//Calculate variances
+		//Calculate variances/squared errors (of individual instance attribute)
 		//change object reference names for clarification purposes
 		double[] pricesVariances = prices;
 		double[] livingAreaVariances = lArea;
@@ -116,7 +116,7 @@ public class user{
 			livingAreaVariances[i] = Math.pow(prices[i], 2);
 		}
 		
-		//Calculate standard deviation
+		//Calculate standard deviation (of all instances) 
 		double priceSD =0;
 		double livingAreaSD = 0;
 		for (int i=0; i < houses.length; i++) {
@@ -127,10 +127,22 @@ public class user{
 		livingAreaSD = Math.sqrt(livingAreaSD / houses.length);
 		
 		
-		
 		// Manhattan Distance
-		int[] recommendedHouses = new int[houses.length];
-		
+		int[][] recommendedHouses = new int[houses.length][2];
+		for (int i=0; i< houses.length;i++) {
+			// house id in first element
+			house h = houses[i];
+			recommendedHouses[i][0] = houses[i].houseId;
+			
+			// distance metric in second element
+			double sum = 0;
+			sum = desiredHouse.hasGarden == h.hasGarden ? sum ++ : sum;
+			sum += Math.abs(desiredHouse.noOfRooms - h.noOfRooms);
+			sum += Math.abs(desiredHouse.noOfBathrooms - h.noOfBathrooms);
+			sum += Math.abs(desiredHouse.noOfBedrooms - h.noOfBedrooms);
+			sum += Math.abs(desiredHouse.floors - h.floors);
+			sum += Math.abs(desiredHouse.price);
+		}
 	}
 	
 
@@ -153,13 +165,12 @@ public class user{
 					if (username.equals(uCurrent[1]) && password.equals(uCurrent[2])) {
 						System.out.println("You've succesfully logged in as: "+ username);
 						type = uCurrent[3];
-						
 						// Depending on the type of the account, the user will be logged in as corresponding account type
-						if (type == "buyer") {
+						if (type.equals("buyer")) {
 							recommendation.currentBuyer = new buyer(Integer.parseInt(uCurrent[0]), uCurrent[1]);
-						} else if (type == "seller") {
+						} else if (type.equals("seller")) {
 							recommendation.currentSeller = new seller(Integer.parseInt(uCurrent[0]), uCurrent[1]);
-						} else if(type == "admin") {
+						} else if(type.equals("admin")) {
 							recommendation.admin = new admin();
 						} else {
 							System.out.println("could not log in. /nSorry :'(");
