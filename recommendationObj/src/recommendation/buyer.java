@@ -1,8 +1,11 @@
 package recommendation;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class buyer extends user {
 		
@@ -36,7 +39,7 @@ public class buyer extends user {
 		
 		public void createBidding(int houseId){
 			//ask for the bidding total
-			System.out.println("What do u wanna bid?");
+			System.out.println("What do you want to bid?");
 			double offer = recommendation.getInputDbl();
 			bidding bid = new bidding(recommendation.biddingCounter +1, offer, this.userId, houseId);
 			
@@ -72,6 +75,19 @@ public class buyer extends user {
 				if (biddings[i].houseId == h.houseId) {
 					counter ++;
 					System.out.println(" * Bidding " + counter+ " :" + biddings[i].total);
+				}
+			}
+			System.out.println("Do you want to add this house to your favorite list? (y/n)");
+			String favorite = recommendation.getInputString();
+			if (favorite.equals( "y")) {
+				try {
+					PrintWriter wr = new PrintWriter(new BufferedWriter(
+									 new FileWriter("favouritelist.txt",true)));				
+					wr.println(recommendation.currentBuyer.userId + ";" + h.houseId);
+					wr.close();
+					System.out.println("The house was added to your favorites list");
+				}catch(IOException e) {
+					System.out.println("File could not be read or appended to");
 				}
 			}
 			System.out.println("Do you want to place a bidding on this house? (y/n)");

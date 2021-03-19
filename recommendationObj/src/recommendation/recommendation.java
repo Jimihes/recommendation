@@ -1,7 +1,8 @@
 /*
  * This program is a command line controlled recommendation system.
- * 
- * 
+ * It consists of three parts: loading, logging in and the main functionality. 
+ * A user in the most general sense can view all houses. When the user has created an 
+ * 		account, s/he can utilize the extra functionality. For example, view a house. 
  */
 
 
@@ -15,19 +16,24 @@ public class recommendation {
 	static Scanner inputInt = new Scanner(System.in);
 	static Scanner inputBool = new Scanner(System.in);
 	static Scanner inputDbl = new Scanner(System.in);
-	static int houseCounter; //might decide to move these counters to the corresponding class later
+	static int houseCounter; //these counters keep track of the number of objects and are used to set unique ID's
 	static int biddingCounter;
 	static int userCounter;
-	static user currentUser;
-	static buyer currentBuyer;
+	
+	static user currentUser; 
+	// Only one of the user subclasses will be initialized in each run of the program.
+	//		if user logs into a buyer account, the currentBuyer attribute will be set.
+	static buyer currentBuyer; 
 	static seller currentSeller;
 	static admin admin;
 	
+	// Program starts here
 	public static void main(String[] args) {
 		
 		// 1. start program
 		// *loads general info
 		 generalReader();
+		 System.out.println(userCounter + "; " + biddingCounter + ";" + houseCounter);
 		 
 		// 2. ask login
 		System.out.println("Would you like to login? (y/n). Or create a new account (new)");
@@ -36,11 +42,12 @@ public class recommendation {
 			System.out.println("logging in");
 			user.login();
 		}else if(login.equals("new")) {
+			// If the user wants to create a new account s/he chooses new
 			createAccount();
+
+			// After creating the account, the user will need to log in
 			System.out.println("Please fill in your username and password to login");
 			user.login();
-		}else { 
-			// user will be quest
 		}
 		
 		boolean active = true;
@@ -56,15 +63,21 @@ public class recommendation {
 			int userChoice = inputInt.nextInt();
 			switch (userChoice) {
 			case 1:
-				currentBuyer.viewHouseList(); //Not finished yet !!
+				// Choosing this case, the program shows all houses (after specifying criteria)
+				// 		After viewing, the buyer can select a home and (also) optionally place a bid or
+				//		add the house to his/her saved list/
+				currentBuyer.viewHouseList(); 
 				break;
 			case 2:
+				// Choosing this case, the user can place a bidding on a house. Remembering the houseId
+				//		is required.
 				System.out.println("On which house do you want to place a bidding? \n"
 						+ "Fill in a house ID number here:");
 				int houseId = getInputInteger();
 				currentBuyer.createBidding(houseId);
 				break;
 			case 3:
+				// Choosing this case, the program shows all houses saved by the buyer.
 				currentBuyer.viewSavedList();
 				break;
 			case -1:
@@ -83,24 +96,32 @@ public class recommendation {
 			
 			switch (userChoice) {
 			case 1:
-				currentSeller.addHouse();
+				// Choosing this option, the seller can add a house if s/he does not have one yet.
+				
+				// Initial check if the user does already have a house
+				if (house.getHouseId(currentSeller.userId) == 0) {
+					currentSeller.addHouse();
+				}
 				break;
 			case 2:
+				// Choosing this, the seller can view the biddings on the house
 				bidding.viewBiddings(currentSeller.userId);
 				break;
 			case 3:
+				// Choosing this, the seller can either accept of decline the bidding
 				currentSeller.determineBidding(); 
-				//if sold: automatically delete this house (not a user choice)
 				break;
 			case 4:
 				currentSeller.editHouse(); 
-				//if sold: automatically delete this house (not a user choice)
 				break;
 			case -1:
 				active = false; 
 				break;
 			}
 		} else if(admin != null) {
+			
+			// The admin can choose the options below.
+			// Any missing functions will be updated on the next update 
 			System.out.println("* remove a house (1)");
 			System.out.println("* edit a house offering (2)");
 			System.out.println("* remove a bidding (3)");
@@ -152,25 +173,25 @@ public class recommendation {
 	}
 	
 	
-		// creates an account and sets with right type.
-		// additionally, the user counter is updated 
-		public static void createAccount() {
-			System.out.println("Are you a buyer (b) or seller (s) ?");
-			String type = inputStr.nextLine();
-			System.out.println("Enter a username:");
-			String username = inputStr.nextLine();
-			System.out.println("Enter a password:");
-			String password = inputStr.nextLine();
-			if (type.equals("b")) {
-				user.appendAccounts(1,username,password,"buyer");
-			}else {
-				user.appendAccounts(1, username, password, "seller");
-			}
-			//update the program that an extra user is added
-			recommendation.userCounter ++;
-			generalUpdate(houseCounter, biddingCounter, userCounter);
-			System.out.println("Succesfully created account");
+	// creates an account and sets with right type.
+	// additionally, the user counter is updated 
+	public static void createAccount() {
+		System.out.println("Are you a buyer (b) or seller (s) ?");
+		String type = inputStr.nextLine();
+		System.out.println("Enter a username:");
+		String username = inputStr.nextLine();
+		System.out.println("Enter a password:");
+		String password = inputStr.nextLine();
+		if (type.equals("b")) {
+			user.appendAccounts(userCounter,username,password,"buyer");
+		}else {
+			user.appendAccounts(userCounter, username, password, "seller");
 		}
+		//update the program that an extra user is added
+		userCounter ++;
+		generalUpdate(houseCounter, biddingCounter, userCounter);
+		System.out.println("Succesfully created account");
+	}
 		
 
 	
@@ -261,7 +282,7 @@ public class recommendation {
 				}
 				catch(InputMismatchException ex) {
 					System.out.println("That is not a valid double input");
-					inputBool.next();
+					inputDbl.next();
 				}
 			}
 			return inputUser; 

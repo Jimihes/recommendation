@@ -2,9 +2,12 @@
 30;jib;ww;seller
 31;Eva;programming;buyer
 32;Jimi;programming;buyer
-33;Johann;Java;buyer 
+33;Johann;Java;buyer
 34;Sarah;java;buyer
 35;Lawrence;password;buyer
 36;John;welcome123;buyer
 37;Pietje;test;buyer
 38;Kees;eclipse;buyer
+11;Nissan;gt86;buyer
+1;Lamborghini;aventador;buyer
+13;Ferrari;F40;buyer

@@ -25,7 +25,6 @@ public class admin extends user{
 		System.out.println("Is this the house you want to remove? (y/n)");
 		System.out.println("Address: " + yourHouse.address);
 		String login = recommendation.getInputString();
-		System.out.println(login.equals("y"));
 		if (login.equals("y")) {
 			int newIndex = 0;
 			for (int i = 0; i <houseList.length; i++){
@@ -50,11 +49,13 @@ public class admin extends user{
 			house [] houseList = house.housesReader();
 			
 			
-			System.out.println("Please enter your house ID: "); 
 			//This method can be called by a seller. If so, the sellers house will be edited.
-			if (recommendation.currentSeller == null) {
+			if (recommendation.currentSeller != null) {
 				editHouseID = house.getHouseId(recommendation.currentSeller.userId);
-			}else; editHouseID = recommendation.getInputInteger();
+			}else {
+				System.out.println("Please enter your house ID: "); 
+				editHouseID = recommendation.getInputInteger();
+			}
 
 			System.out.println("Please fill in what house characteristic you want to change: "); 
 			System.out.println("1 = presence of Garden"); 
@@ -169,6 +170,7 @@ public class admin extends user{
 			newIndex++;
 		}
 		bidding.overwriteBiddingsFile(newbidding);
+		System.out.println("The bidding is removed succesfully");
     }
     
     public void deleteUser() {

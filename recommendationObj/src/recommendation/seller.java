@@ -11,6 +11,8 @@ public class seller extends user{
 	
 	
 	public void addHouse() {
+		
+		
 		boolean hasGarden = false;
 		int noOfRooms = -1;
 		int noOfBathrooms = -1;
@@ -131,10 +133,8 @@ public class seller extends user{
 	//this method determines the accepted bidding from the seller 
 		public void determineBidding() {
 				bidding[] biddings = bidding.biddingsReader(); //return an array of biddings from johann's method viewBiddings 
-				house[] houseList = house.housesReader(); //return an array of house ID's from the viewhouseList 
 				
-				//is there a way that the system can read all this information automatically, instead of the user having to fill it in manually? 
-				System.out.println("Please enter the following information about the bid you want to determine:"); 
+				System.out.println("Please enter the ID of the bid you want to determine:"); 
 				System.out.println("Bidding id: "); 
 				int bidIdInput = recommendation.getInputInteger();  //enter bidding ID 
 				
@@ -148,18 +148,17 @@ public class seller extends user{
 				//		linked to that house will be removed from the biddingsarray
 				if (accepted == true) {
 				
-				
-				// create for loop with only biddings linked to other houses (arraylist)
-				ArrayList<bidding> newbiddings = new ArrayList<bidding>(); 
-				for (int i=0; i< biddings.length; i++) {
-					if (biddings[i].houseId != houseId) {
-						newbiddings.add(biddings[i]);
+					// create for loop with only biddings linked to other houses (arraylist)
+					ArrayList<bidding> newbiddings = new ArrayList<bidding>(); 
+					for (int i=0; i< biddings.length; i++) {
+						if (biddings[i].houseId != houseId) {
+							newbiddings.add(biddings[i]);
+						}
 					}
-				}
-				// String[] array = list.toArray(new String[list.size()]);
-				bidding[] arrbiddings = newbiddings.toArray(new bidding[newbiddings.size()]);
-				bidding.overwriteBiddingsFile(arrbiddings); 
-				
+					// String[] array = list.toArray(new String[list.size()]);
+					bidding[] arrbiddings = newbiddings.toArray(new bidding[newbiddings.size()]);
+					bidding.overwriteBiddingsFile(arrbiddings); 
+					
 				
 				// if the seller wants to decline the offer, only the attribute status of that
 				//		bidding will be adjusted.
@@ -167,7 +166,7 @@ public class seller extends user{
 					
 					for (int i=0; i < biddings.length;i++) {
 						// -change bidding.status to declined
-						if ( biddings[i].houseId == houseId) {
+						if ( biddings[i].bidId == bidIdInput) {
 							biddings[i].status = "declined";
 						}
 					}

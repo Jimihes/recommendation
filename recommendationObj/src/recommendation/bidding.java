@@ -71,6 +71,7 @@ public class bidding {
 								 new FileWriter("biddings.txt",true)));				
 				wr.println(b.bidId +";"+ b.total + ";" + b.userId +";"+ b.houseId);
 				wr.close();
+				System.out.println("Your bidding was placed successfully");
 			}catch(IOException e) {
 				System.out.println("File could not be read or appended to");
 			}

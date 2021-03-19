@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class user{
 
@@ -43,12 +42,12 @@ public class user{
 				int j = atbs.get(i);
 				System.out.println("* "+ houseAttributes[j] + "("+ j+")");
 			}
-			System.out.println("Type the attribute number to specify:");
-			
-			//
-			//userChoice = inputInt.nextInt();
-			// option 1
+
+			do {
+				System.out.println("Type the attribute number to specify:");
 			userChoice = recommendation.getInputInteger();
+			
+			}while(!atbs.contains(userChoice));
 			
 			switch (userChoice) {
 			case 0: //hasGarden
@@ -220,28 +219,34 @@ public class user{
 					uCurrent = sCurrentLine.split(";");
 					
 					if (username.equals(uCurrent[1]) && password.equals(uCurrent[2])) {
-						System.out.println("You've succesfully logged in as: "+ username);
 						type = uCurrent[3];
+						
 						// Depending on the type of the account, the user will be logged in as corresponding account type
 						if (type.equals("buyer")) {
 							recommendation.currentBuyer = new buyer();
 							recommendation.currentBuyer.setUsername(username);
 							recommendation.currentBuyer.setUserId(Integer.parseInt(uCurrent[0]));
+							System.out.println("You've succesfully logged in as: "+ username);
 						} else if (type.equals("seller")) {
 							recommendation.currentSeller = new seller(Integer.parseInt(uCurrent[0]), uCurrent[1]);
-						} else if(type.equals("admin")) {
+							System.out.println("You've succesfully logged in as: "+ username);
+						} else if (type.equals("admin")) {
 							recommendation.admin = new admin();
+							System.out.println("You've succesfully logged in as: "+ username);
 						} else {
 							System.out.println("An error appeared setting the user subclass");
 						}
 						fail = false;
 					} 
 				}
-				if (fail  ==true){
+				if (fail ==true){
 					System.out.println("could not log in. /nSorry :'(");
 					System.out.println("Would you like to try again? (y/n)" );
 					String again = recommendation.getInputString();
-					if (again == "y");login();
+					if (again == "y") {
+						login() ;
+					}else {
+					}
 				}
 				br.close();
 			}catch(IOException e){
