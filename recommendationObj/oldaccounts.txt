@@ -1,0 +1,4 @@
+18;gibbel;pw;admin;
+1;jib;ww;seller
+1;gibbelS;ww;seller
+4;koopmans;ww;buyer
