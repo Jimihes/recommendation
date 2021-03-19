@@ -67,7 +67,7 @@ public class recommendation {
 				currentBuyer.createBidding(houseId);
 				break;
 			case 3:
-				//viewSavedList();
+				currentBuyer.viewSavedList();
 				break;
 			case -1:
 				active = false; 

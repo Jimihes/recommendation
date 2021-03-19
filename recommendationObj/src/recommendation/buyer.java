@@ -1,5 +1,9 @@
 package recommendation;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class buyer extends user {
 		
 		public buyer( int userId, String username) {
@@ -7,6 +11,29 @@ public class buyer extends user {
 			this.username = username;
 		}
 	
+		public void viewSavedList() {
+			System.out.println("----------------------------------\n"
+					+ "The following houses are in your favorite list");
+			try {
+				BufferedReader br = new BufferedReader(new FileReader("favouritelist.txt"));
+				String sCurrentLine;
+				String[] uCurrent;
+				while((sCurrentLine = br.readLine()) != null) {
+					uCurrent = sCurrentLine.split(";");
+					if (Integer.parseInt(uCurrent[0]) == this.userId) {
+						int houseId = Integer.parseInt(uCurrent[0]);
+						house h = house.houseReader(houseId);
+						System.out.println(" * Address:" + h.address + ", house ID: " +h.houseId);
+						
+					}
+				}
+				br.close();
+			} catch(IOException e){
+				System.out.println("Could not read savedList;");
+			}
+
+		}
+		
 		
 		public void createBidding(int houseId){
 			//ask for the bidding total
